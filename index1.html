@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sitara AI - Discover 200+ AI Tools</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #0a0a0a 0%, #1a0a2e 50%, #0a0a0a 100%);
+      color: #fff;
+      overflow-x: hidden;
+    }
+
+    .stars {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .star {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      background: #fff;
+      border-radius: 50%;
+      animation: twinkle 3s infinite;
+    }
+
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.3; }
+      50% { opacity: 1; }
+    }
+
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: rgba(10, 10, 10, 0.95);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      z-index: 1000;
+      padding: 15px 0;
+    }
+
+    .nav-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 28px;
+      font-weight: bold;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 30px;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: #b8b8d1;
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.3s;
+      cursor: pointer;
+    }
+
+    .nav-links a:hover {
+      color: #667eea;
+    }
+
+    .logout-btn {
+      padding: 8px 20px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border: none;
+      border-radius: 8px;
+      color: #fff;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-size: 14px;
+    }
+
+    .logout-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+    }
+
+    /* Cookie Settings Modal */
+    .cookie-modal {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(0, 0, 0, 0.95);
+      backdrop-filter: blur(10px);
+      border-top: 1px solid rgba(255, 255, 255, 0.2);
+      padding: 30px;
+      z-index: 3000;
+      animation: slideUpCookie 0.5s ease-out;
+      display: none;
+    }
+
+    .cookie-modal.show {
+      display: block;
+    }
+
+    @keyframes slideUpCookie {
+      from {
+        transform: translateY(100%);
+      }
+      to {
+        transform: translateY(0);
+      }
+    }
+
+    .cookie-content {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .cookie-content h2 {
+      font-size: 28px;
+      margin-bottom: 15px;
+      color: #fff;
+    }
+
+    .cookie-content p {
+      color: #b8b8d1;
+      font-size: 16px;
+      line-height: 1.6;
+      margin-bottom: 25px;
+    }
+
+    .cookie-content p a {
+      color: #667eea;
+      text-decoration: underline;
+    }
+
+    .cookie-buttons {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .cookie-btn {
+      padding: 12px 30px;
+      border-radius: 10px;
+      border: none;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .cookie-btn-primary {
+      background: #fff;
+      color: #000;
+    }
+
+    .cookie-btn-primary:hover {
+      background: #f0f0f0;
+      transform: translateY(-2px);
+    }
+
+    .cookie-btn-secondary {
+      background: transparent;
+      color: #fff;
+      border: 2px solid #fff;
+    }
+
+    .cookie-btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.1);
+      transform: translateY(-2px);
+    }
+
+    .cookie-btn-outline {
+      background: transparent;
+      color: #b8b8d1;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .cookie-btn-outline:hover {
+      border-color: #667eea;
+      color: #667eea;
+    }
+
+    .hero {
+      margin-top: 80px;
+      padding: 80px 30px 50px;
+      text-align: center;
+      position: relative;
+      z-index: 10;
+    }
+
+    .hero h1 {
+      font-size: 64px;
+      margin-bottom: 20px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: fadeInUp 0.8s ease-out;
+    }
+
+    .hero p {
+      font-size: 22px;
+      color: #b8b8d1;
+      margin-bottom: 40px;
+      animation: fadeInUp 0.8s ease-out 0.2s backwards;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 30px 80px;
+      position: relative;
+      z-index: 10;
+    }
+
+    .category-section {
+      margin-bottom: 70px;
+      animation: fadeIn 0.6s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .category-header {
+      margin-bottom: 30px;
+      padding-bottom: 15px;
+      border-bottom: 2px solid rgba(102, 126, 234, 0.3);
+    }
+
+    .category-header h2 {
+      font-size: 36px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: inline-block;
+    }
+
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 25px;
+    }
+
+    .tool-card {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 30px;
+      transition: all 0.3s;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .tool-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .tool-card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(102, 126, 234, 0.5);
+      box-shadow: 0 20px 60px rgba(102, 126, 234, 0.3);
+    }
+
+    .tool-card:hover::before {
+      opacity: 1;
+    }
+
+    .tool-card h3 {
+      font-size: 22px;
+      color: #fff;
+      margin-bottom: 12px;
+      position: relative;
+    }
+
+    .tool-card p {
+      color: #b8b8d1;
+      font-size: 15px;
+      line-height: 1.6;
+      margin-bottom: 20px;
+      position: relative;
+    }
+
+    .tool-card a {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border-radius: 10px;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 14px;
+      transition: all 0.3s;
+      position: relative;
+    }
+
+    .tool-card a:hover {
+      transform: translateX(5px);
+      box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+    }
+
+    .about-section,
+    .contact-section {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 25px;
+      padding: 60px;
+      margin-bottom: 60px;
+    }
+
+    .about-section h2,
+    .contact-section h2 {
+      font-size: 42px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 25px;
+    }
+
+    .about-section p {
+      color: #b8b8d1;
+      font-size: 18px;
+      line-height: 1.8;
+      margin-bottom: 20px;
+    }
+
+    .form-group {
+      margin-bottom: 25px;
+    }
+
+    .form-group label {
+      display: block;
+      color: #b8b8d1;
+      margin-bottom: 10px;
+      font-weight: 500;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 15px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      background: rgba(255, 255, 255, 0.05);
+      color: #fff;
+      font-size: 16px;
+      font-family: inherit;
+      transition: all 0.3s;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: #667eea;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 150px;
+    }
+
+    .submit-btn {
+      padding: 15px 40px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border: none;
+      border-radius: 12px;
+      color: #fff;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .submit-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+    }
+
+    .form-message {
+      margin-top: 20px;
+      padding: 15px;
+      border-radius: 10px;
+      display: none;
+    }
+
+    .form-message.success {
+      background: rgba(76, 175, 80, 0.2);
+      border: 1px solid rgba(76, 175, 80, 0.5);
+      color: #4caf50;
+      display: block;
+    }
+
+    footer {
+      background: rgba(10, 10, 10, 0.95);
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 60px 30px 30px;
+      text-align: center;
+    }
+
+    .footer-logo {
+      font-size: 36px;
+      font-weight: bold;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 15px;
+    }
+
+    .footer-desc {
+      color: #b8b8d1;
+      font-size: 16px;
+      margin-bottom: 30px;
+      line-height: 1.6;
+    }
+
+    .footer-bottom {
+      color: #b8b8d1;
+      font-size: 14px;
+      padding-top: 30px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 42px;
+      }
+
+      .tools-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .about-section,
+      .contact-section {
+        padding: 40px 30px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="stars" id="stars"></div>
+
+  <!-- Cookie Settings Modal -->
+  <div class="cookie-modal" id="cookieModal">
+    <div class="cookie-content">
+      <h2>Cookie settings</h2>
+      <p>
+        We use cookies to deliver and improve our services, analyze site usage, and if you agree, to customize or 
+        personalize your experience and market our services to you. You can read our Cookie Policy 
+        <a href="#" onclick="alert('Cookie Policy page'); return false;">here</a>.
+      </p>
+      <div class="cookie-buttons">
+        <button class="cookie-btn cookie-btn-outline" onclick="customizeCookies()">Customize Cookie Settings</button>
+        <button class="cookie-btn cookie-btn-secondary" onclick="rejectCookies()">Reject All Cookies</button>
+        <button class="cookie-btn cookie-btn-primary" onclick="acceptCookies()">Accept All Cookies</button>
+      </div>
+    </div>
+  </div>
+
+  <nav>
+    <div class="nav-container">
+      <div class="logo">
+        <span>✨</span>
+        <span>Sitara AI</span>
+      </div>
+      <ul class="nav-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#categories">Categories</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><button class="logout-btn" onclick="handleLogout()">Logout</button></li>
+      </ul>
+    </div>
+  </nav>
+
+  <section class="hero" id="home">
+    <h1>Sitara AI Tools</h1>
+    <p>Discover the Best AI Tools - Chatbots, Image Generators, Video, Writing & More</p>
+  </section>
+
+  <div class="container">
+    <div id="ai-sections"></div>
+
+    <section class="about-section" id="about">
+      <h2>About Sitara AI</h2>
+      <p>
+        Welcome to <strong>Sitara AI</strong> — your one-stop platform to explore and experience the best AI tools available across categories like Chatbots, Image Generation, Video Editing, Writing Assistants, and more.
+      </p>
+      <p>
+        Our mission is to make AI accessible, engaging, and useful for everyone. Whether you're a creator, student, developer, or business owner — Sitara AI supports your goals with trusted tools.
+      </p>
+      <p>
+        Questions? Feedback? Just want to say hi? <a href="tel:+918348458035" style="color: #667eea; font-weight: bold;">Contact us anytime</a>.
+      </p>
+    </section>
+
+    <section class="contact-section" id="contact">
+      <h2>Contact Us</h2>
+      <form id="contactForm">
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text" id="name" name="name" required placeholder="Your name">
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required placeholder="your@email.com">
+        </div>
+        <div class="form-group">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" required placeholder="Your message..."></textarea>
+        </div>
+        <button type="submit" class="submit-btn">Send Message</button>
+        <div class="form-message" id="formMessage"></div>
+      </form>
+    </section>
+  </div>
+
+  <footer>
+    <div class="footer-logo">Sitara AI</div>
+    <p class="footer-desc">
+      Helping you discover the most powerful AI tools in one place — fast, reliable, and up to date.
+    </p>
+    <div class="footer-bottom">
+      🌐 Created by <strong>Bikramjit</strong> | © 2025 Sitara AI. All rights reserved.
+    </div>
+  </footer>
+
+  <script>
+    // Generate stars
+    const starsContainer = document.getElementById('stars');
+    for (let i = 0; i < 150; i++) {
+      const star = document.createElement('div');
+      star.className = 'star';
+      star.style.left = Math.random() * 100 + '%';
+      star.style.top = Math.random() * 100 + '%';
+      star.style.animationDelay = Math.random() * 3 + 's';
+      starsContainer.appendChild(star);
+    }
+
+    const aiCategories = [
+      {
+        name: "AI Chatbots",
+        tools: [
+          { name: "ChatGPT", desc: "AI chatbot by OpenAI", link: "https://chat.openai.com" },
+          { name: "Claude", desc: "AI assistant by Anthropic", link: "https://claude.ai" },
+          { name: "Pi.ai", desc: "Personal AI companion", link: "https://pi.ai" },
+          { name: "DeepSeek", desc: "AI chatbot by DeepSeek", link: "https://www.deepseek.com/" },
+          { name: "Gemini", desc: "AI chatbot by Google", link: "https://gemini.google.com/" },
+          { name: "Grok", desc: "AI chatbot by xAI", link: "https://x.ai/" },
+          { name: "Meta AI", desc: "AI chatbot by Meta", link: "https://www.meta.ai/" },
+          { name: "MS Copilot", desc: "AI chatbot by Microsoft", link: "https://copilot.microsoft.com/" },
+          { name: "Perplexity", desc: "AI search engine", link: "https://www.perplexity.ai" }
+        ]
+      },
+      {
+        name: "AI Image Generators",
+        tools: [
+          { name: "Midjourney", desc: "AI art generator", link: "https://midjourney.com" },
+          { name: "DALL·E", desc: "Text to image by OpenAI", link: "https://openai.com/dall-e" },
+          { name: "Leonardo AI", desc: "Creative image AI", link: "https://leonardo.ai" },
+          { name: "Adobe Firefly", desc: "AI image generator by Adobe", link: "https://firefly.adobe.com/" },
+          { name: "FLUX.1", desc: "AI image generator", link: "https://flux1.ai/" },
+          { name: "Ideogram", desc: "AI image generator", link: "https://ideogram.ai/" },
+          { name: "Recraft", desc: "AI design tool", link: "https://recraft.ai/" },
+          { name: "Stable Diffusion", desc: "Open-source image AI", link: "https://stablediffusionweb.com/" }
+        ]
+      },
+      {
+        name: "AI Video Generators",
+        tools: [
+          { name: "Sora", desc: "Text to video by OpenAI", link: "https://openai.com/sora" },
+          { name: "Runway ML", desc: "Video editing with AI", link: "https://runwayml.com" },
+          { name: "Pika", desc: "AI animation creator", link: "https://pika.art" },
+          { name: "Descript", desc: "AI video editor", link: "https://www.descript.com/" },
+          { name: "Haiper AI", desc: "Creative video generation", link: "https://haiper.ai/" },
+          { name: "InVideo AI", desc: "Text to video converter", link: "https://invideo.io/" },
+          { name: "Kling", desc: "AI video generator", link: "https://kling.ai/" },
+          { name: "Krea AI", desc: "Real-time video AI", link: "https://www.krea.ai/" },
+          { name: "LTX Studio", desc: "AI filmmaking platform", link: "https://www.ltxstudio.com/" },
+          { name: "Luma AI", desc: "3D video generation", link: "https://lumalabs.ai/" }
+        ]
+      },
+      {
+        name: "AI Writing Tools",
+        tools: [
+          { name: "Copy.ai", desc: "Marketing & content writing", link: "https://copy.ai" },
+          { name: "Jasper", desc: "AI content assistant", link: "https://jasper.ai" },
+          { name: "Quillbot", desc: "Paraphrasing tool", link: "https://quillbot.com" },
+          { name: "Grammarly", desc: "AI writing assistant", link: "https://www.grammarly.com/" },
+          { name: "JotBot", desc: "AI note-taking", link: "https://jotbot.com/" },
+          { name: "Quarkle", desc: "AI content generator", link: "https://quarkle.ai/" },
+          { name: "Rytr", desc: "Affordable AI writer", link: "https://rytr.me/" },
+          { name: "Sudowrite", desc: "Creative writing AI", link: "https://www.sudowrite.com/" },
+          { name: "Writesonic", desc: "AI writing platform", link: "https://writesonic.com/" }
+        ]
+      },
+      {
+        name: "AI Coding Tools",
+        tools: [
+          { name: "Replit Ghostwriter", desc: "AI coding partner", link: "https://replit.com" },
+          { name: "GitHub Copilot", desc: "Code completion AI", link: "https://github.com/features/copilot" },
+          { name: "Codeium", desc: "Free AI pair programmer", link: "https://codeium.com" },
+          { name: "AskCodi", desc: "AI code assistant", link: "https://www.askcodi.com/" },
+          { name: "Codiga", desc: "Code review AI", link: "https://www.codiga.io/" },
+          { name: "Cursor", desc: "AI code editor", link: "https://www.cursor.so/" },
+          { name: "Qodo", desc: "AI coding assistant", link: "https://qodo.dev/" },
+          { name: "Tabnine", desc: "AI code completion", link: "https://www.tabnine.com/" }
+        ]
+      },
+      {
+        name: "AI Presentation",
+        tools: [
+          { name: "Beautiful.ai", desc: "AI presentation maker", link: "https://www.beautiful.ai/" },
+          { name: "Gamma", desc: "AI-powered slides", link: "https://gamma.app/" },
+          { name: "Pitch", desc: "Collaborative presentations", link: "https://pitch.com/" },
+          { name: "Plus", desc: "AI presentation tool", link: "https://www.plusdocs.com/" },
+          { name: "PopAi", desc: "Smart presentations", link: "https://popai.pro/" },
+          { name: "Presentation.ai", desc: "Auto presentation creator", link: "https://www.presentations.ai/" },
+          { name: "Slidesgo", desc: "AI slide templates", link: "https://slidesgo.com/" },
+          { name: "Tome", desc: "AI storytelling", link: "https://tome.app/" }
+        ]
+      },
+      {
+        name: "AI Spreadsheet",
+        tools: [
+          { name: "Bricks AI", desc: "Visual spreadsheets", link: "https://usebricks.ai/" },
+          { name: "Formula Bot", desc: "Excel formula AI", link: "https://formulabot.com/" },
+          { name: "Gigasheet", desc: "Big data spreadsheet", link: "https://gigasheet.com/" },
+          { name: "Rows AI", desc: "Next-gen spreadsheet", link: "https://rows.com/" },
+          { name: "Sheet AI", desc: "Google Sheets AI", link: "https://www.sheetai.app/" }
+        ]
+      },
+      {
+        name: "AI Scheduling",
+        tools: [
+          { name: "Calendly", desc: "Smart scheduling", link: "https://calendly.com/" },
+          { name: "Clockwise", desc: "AI calendar optimizer", link: "https://www.getclockwise.com/" },
+          { name: "Motion", desc: "AI task manager", link: "https://usemotion.com/" },
+          { name: "Reclaim AI", desc: "Smart calendar", link: "https://reclaim.ai/" },
+          { name: "Taskade", desc: "AI task collaboration", link: "https://www.taskade.com/" },
+          { name: "Trevor AI", desc: "Time blocking AI", link: "https://www.trevorai.com/" }
+        ]
+      },
+      {
+        name: "AI Knowledge Management",
+        tools: [
+          { name: "Mem", desc: "AI note-taking", link: "https://mem.ai/" },
+          { name: "Notion", desc: "Connected workspace", link: "https://www.notion.so/" },
+          { name: "Tettra", desc: "Team knowledge base", link: "https://tettra.com/" }
+        ]
+      },
+      {
+        name: "AI Meeting Notes",
+        tools: [
+          { name: "Avoma", desc: "Meeting intelligence", link: "https://www.avoma.com/" },
+          { name: "Equal Time", desc: "Meeting analytics", link: "https://equaltime.io/" },
+          { name: "Fathom", desc: "Free meeting recorder", link: "https://fathom.video/" },
+          { name: "Fellow.app", desc: "Meeting productivity", link: "https://fellow.app/" },
+          { name: "Fireflies", desc: "AI meeting assistant", link: "https://fireflies.ai/" },
+          { name: "Krisp", desc: "Noise cancellation", link: "https://krisp.ai/" },
+          { name: "Otter", desc: "Voice meeting notes", link: "https://otter.ai/" }
+        ]
+      },
+      {
+        name: "AI Email Assistant",
+        tools: [
+          { name: "Clippit.ai", desc: "Email automation", link: "https://clippit.ai/" },
+          { name: "Friday", desc: "Email writing AI", link: "https://friday.app/" },
+          { name: "Mailmaestro", desc: "Email composer", link: "https://mailmaestro.ai/" },
+          { name: "Shortwave", desc: "Smart email", link: "https://www.shortwave.com/" },
+          { name: "Superhuman", desc: "Blazing fast email", link: "https://superhuman.com/" }
+        ]
+      },
+      {
+        name: "AI Workflow Automation",
+        tools: [
+          { name: "Integrately", desc: "1-click automation", link: "https://integrately.com/" },
+          { name: "Make", desc: "Visual automation", link: "https://www.make.com/" },
+          { name: "Monday.com", desc: "Work management", link: "https://monday.com/" },
+          { name: "n8n", desc: "Workflow automation", link: "https://n8n.io/" },
+          { name: "Wrike", desc: "Project management", link: "https://www.wrike.com/" },
+          { name: "Zapier", desc: "Connect your apps", link: "https://zapier.com/" }
+        ]
+      },
+      {
+        name: "AI Graphic Design",
+        tools: [
+          { name: "AutoDraw", desc: "Quick drawings", link: "https://www.autodraw.com/" },
+          { name: "Canva", desc: "Design platform", link: "https://www.canva.com/" },
+          { name: "Design.com", desc: "Logo maker", link: "https://www.design.com/" },
+          { name: "Framer", desc: "Web design tool", link: "https://www.framer.com/" },
+          { name: "Microsoft Designer", desc: "Graphic design AI", link: "https://designer.microsoft.com/" },
+          { name: "Uizard", desc: "UI design AI", link: "https://uizard.io/" }
+        ]
+      },
+      {
+        name: "AI Data Visualization",
+        tools: [
+          { name: "Deckpilot", desc: "Presentation analytics", link: "https://www.deckpilot.com/" },
+          { name: "Flourish", desc: "Data storytelling", link: "https://flourish.studio/" },
+          { name: "Julius", desc: "Data analysis AI", link: "https://julius.ai/" },
+          { name: "Visme", desc: "Visual content", link: "https://www.visme.co/" },
+          { name: "Zing Data", desc: "Mobile data viz", link: "https://www.zingdata.com/" }
+        ]
+      }
+    ];
+
+    const container = document.getElementById('ai-sections');
+
+    aiCategories.forEach((category, index) => {
+      const section = document.createElement('div');
+      section.className = 'category-section';
+      section.id = 'categories';
+      section.style.animationDelay = `${index * 0.1}s`;
+
+      const header = document.createElement('div');
+      header.className = 'category-header';
+      header.innerHTML = `<h2>${category.name}</h2>`;
+      section.appendChild(header);
+
+      const grid = document.createElement('div');
+      grid.className = 'tools-grid';
+
+      category.tools.forEach(tool => {
+        const card = document.createElement('div');
+        card.className = 'tool-card';
+        card.innerHTML = `
+          <h3>${tool.name}</h3>
+          <p>${tool.desc}</p>
+          <a href="${tool.link}" target="_blank">Visit Tool →</a>
+        `;
+        grid.appendChild(card);
+      });
+
+      section.appendChild(grid);
+      container.appendChild(section);
+    });
+
+    // Contact Form
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const formMessage = document.getElementById('formMessage');
+      formMessage.className = 'form-message success';
+      formMessage.textContent = 'Thank you for contacting us! We will get back to you soon.';
+      this.reset();
+      setTimeout(() => {
+        formMessage.style.display = 'none';
+      }, 5000);
+    });
+
+    // Smooth scrolling
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    });
+
+    // Cookie Modal Management
+    window.addEventListener('load', function() {
+      // Check if user has already accepted/rejected cookies
+      const cookieConsent = localStorage.getItem('cookieConsent');
+      if (!cookieConsent) {
+        // Show cookie modal after 2 seconds
+        setTimeout(() => {
+          document.getElementById('cookieModal').classList.add('show');
+        }, 2000);
+      }
+    });
+
+    function acceptCookies() {
+      localStorage.setItem('cookieConsent', 'accepted');
+      document.getElementById('cookieModal').classList.remove('show');
+      showNotification('✓ All cookies accepted', 'success');
+    }
+
+    function rejectCookies() {
+      localStorage.setItem('cookieConsent', 'rejected');
+      document.getElementById('cookieModal').classList.remove('show');
+      showNotification('✓ All cookies rejected', 'success');
+    }
+
+    function customizeCookies() {
+      alert('Cookie customization settings would open here.\n\nYou can customize:\n- Essential cookies\n- Analytics cookies\n- Marketing cookies\n- Preference cookies');
+      localStorage.setItem('cookieConsent', 'customized');
+      document.getElementById('cookieModal').classList.remove('show');
+      showNotification('✓ Cookie preferences saved', 'success');
+    }
+
+    // Logout Function
+    function handleLogout() {
+      if (confirm('Are you sure you want to logout?')) {
+        // Clear user session
+        sessionStorage.clear();
+        localStorage.removeItem('userLoggedIn');
+        showNotification('✓ Logged out successfully', 'success');
+        
+        // Redirect to login page after 1.5 seconds
+        setTimeout(() => {
+          window.location.href = 'login.html'; // Change to your login page URL
+        }, 1500);
+      }
+    }
+
+    // Notification System
+    function showNotification(message, type = 'success') {
+      const notification = document.createElement('div');
+      notification.style.cssText = `
+        position: fixed;
+        top: 100px;
+        right: 30px;
+        background: ${type === 'success' ? 'linear-gradient(135deg, #4caf50, #45a049)' : 'linear-gradient(135deg, #667eea, #764ba2)'};
+        color: white;
+        padding: 15px 25px;
+        border-radius: 12px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        z-index: 4000;
+        font-weight: 500;
+        animation: slideInRight 0.5s ease-out;
+      `;
+      notification.textContent = message;
+      document.body.appendChild(notification);
+
+      // Remove notification after 3 seconds
+      setTimeout(() => {
+        notification.style.animation = 'slideOutRight 0.5s ease-out';
+        setTimeout(() => notification.remove(), 500);
+      }, 3000);
+    }
+
+    // Add animation styles
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes slideInRight {
+        from {
+          transform: translateX(400px);
+          opacity: 0;
+        }
+        to {
+          transform: translateX(0);
+          opacity: 1;
+        }
+      }
+      @keyframes slideOutRight {
+        from {
+          transform: translateX(0);
+          opacity: 1;
+        }
+        to {
+          transform: translateX(400px);
+          opacity: 0;
+        }
+      }
+    `;
+    document.head.appendChild(style);
+  </script>
+</body>
+</html>
