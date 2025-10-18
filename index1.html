@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5/dist/css/bootstrap.min.css" rel="stylesheet">
+  <title>Sitara AI Tools</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #f0f4ff, #ffffff);
+      color: #333;
+    }
+    
+    /* Navigation Bar */
+    .navbar {
+      background: linear-gradient(to right, #2a7ae2, #00bcd4);
+      color: white;
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    
+    .logo {
+      font-size: 1.8em;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+    }
+    
+    .logo img {
+      height: 40px;
+      margin-right: 10px;
+    }
+    
+    .nav-links {
+      display: flex;
+      list-style: none;
+    }
+    
+    .nav-links li {
+      margin-left: 25px;
+    }
+    
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+    
+    .nav-links a:hover {
+      color: #f0f8ff;
+      text-decoration: underline;
+    }
+    
+    .auth-buttons .btn {
+      padding: 8px 20px;
+      border-radius: 6px;
+      margin-left: 10px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+    
+    .login-btn {
+      background: transparent;
+      border: 1px solid white;
+      color: white;
+    }
+    
+    .login-btn:hover {
+      background: rgba(255,255,255,0.1);
+    }
+    
+    .signup-btn {
+      background: white;
+      border: 1px solid white;
+      color: #2a7ae2;
+    }
+    
+    .signup-btn:hover {
+      background: #f0f8ff;
+    }
+    
+    /* Main Content */
+    .main-content {
+      padding: 20px;
+    }
+    
+    header {
+      background: linear-gradient(to right, #2a7ae2, #00bcd4);
+      color: white;
+      text-align: center;
+      padding: 40px 20px;
+      border-radius: 12px;
+      margin-bottom: 30px;
+    }
+    header h1 { font-size: 2.5em; }
+    .category {
+      margin-bottom: 40px;
+      animation: fadeIn 1s ease;
+    }
+    .category h2 {
+      font-size: 2em;
+      margin-bottom: 20px;
+      color: #2a7ae2;
+      border-bottom: 2px solid #00bcd4;
+      padding-bottom: 5px;
+    }
+    .tools {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+    .tool-card {
+      background: #f0f8ff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease;
+    }
+    .tool-card:hover {
+      transform: translateY(-5px);
+    }
+    .tool-card h3 {
+      color: #2a7ae2;
+      margin-bottom: 10px;
+    }
+    .tool-card p {
+      margin-bottom: 10px;
+    }
+    .tool-card a {
+      color: #00bcd4;
+      font-weight: bold;
+      text-decoration: none;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .container {
+      max-width: 900px;
+      margin: 40px auto;
+      background: #fff;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    footer {
+      text-align: center;
+      margin-top: 60px;
+      font-size: 14px;
+      color: #777;
+    }
+    input, textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background: #2a7ae2;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #1558a1;
+    }
+    label {
+      font-weight: bold;
+      margin-top: 15px;
+      display: block;
+    }
+    .success { color: green; margin-top: 20px; }
+    .error { color: red; margin-top: 20px; }
+    
+    /* Login Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 2000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.5);
+      overflow: auto;
+    }
+    
+    .modal-content {
+      background-color: #fefefe;
+      margin: 10% auto;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+      width: 400px;
+      max-width: 90%;
+      animation: modalFadeIn 0.3s;
+    }
+    
+    @keyframes modalFadeIn {
+      from { opacity: 0; transform: translateY(-50px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .close {
+      color: #aaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    
+    .close:hover {
+      color: #333;
+    }
+    
+    .form-title {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #2a7ae2;
+    }
+    
+    .form-group {
+      margin-bottom: 20px;
+    }
+    
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+      color: #555;
+    }
+    
+    .form-group input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+    }
+
+    .form-footer {
+      text-align: center;
+      margin-top: 20px;
+    }
+    
+    .form-footer a {
+      color: #2a7ae2;
+      text-decoration: none;
+    }
+    
+    .form-footer a:hover {
+      text-decoration: underline;
+    }
+    
+    .login-btn-main {
+      width: 100%;
+      padding: 12px;
+      background: linear-gradient(to right, #2a7ae2, #00bcd4);
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    
+    .login-btn-main:hover {
+      opacity: 0.9;
+      transform: translateY(-2px);
+    }
+    
+    .social-login {
+      margin-top: 20px;
+      text-align: center;
+    }
+    
+    .social-btn {
+      display: inline-block;
+      padding: 10px 15px;
+      margin: 0 5px;
+      border-radius: 6px;
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+    }
+    
+    .google-btn {
+      background: #DB4437;
+    }
+    
+    .facebook-btn {
+      background: #4267B2;
+    }
+    
+    .github-btn {
+      background: #333;
+    }
+    img { max-width: 100%; height: auto; }
+    @media (max-width: 800px) {
+  .sidebar, .main, .right { width: 100%; }
+}
+
+  </style>
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <div class="logo">
+      <span>Sitara AI</span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#categories">Categories</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    
+  </nav>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <header id="home">
+      <h1>Sitara AI - Explore All Types of AI Tools</h1>
+      <p>Chatbots, Image Generators, Video, Writing, Coding, Productivity & More</p>
+    </header>
+
+    <div id="ai-sections" id="categories" ></div>
+
+    <!-- About Section -->
+    <section class="container" id="about" style="background: #f9fbff; border: 1px solid #e0e7ff;">
+      <h1 style="font-size: 2em; color: #2a7ae2; margin-bottom: 15px;">About Sitara AI</h1>
+      <p style="font-size: 1.1em; line-height: 1.6; color: #444;">
+        Welcome to <strong>Sitara AI</strong> — your one-stop platform to explore and experience the best AI tools available across categories like Chatbots, Image Generation, Video Editing, Writing Assistants, and more.
+      </p>
+      <p style="font-size: 1.1em; line-height: 1.6; color: #444;">
+        Our mission is to make AI accessible, engaging, and useful for everyone. Whether you're a creator, student, developer, or business owner — Sitara AI supports your goals with trusted tools.
+      </p>
+      <p style="font-size: 1.1em; line-height: 1.6; color: #444;">
+        Questions? Feedback? Just want to say hi? <a href="tel:+918348458035" style="color: #00bcd4; font-weight: bold;">Contact us anytime</a>.
+      </p>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="container" id="contact" style="margin-top: 50px; background: #f0f8ff; border: 1px solid #dce7f7;">
+      <h1 style="font-size: 2em; color: #2a7ae2; margin-bottom: 15px;">Contact Us</h1>
+      <form id="contactForm">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="message">Message:</label>
+        <textarea id="message" name="message" rows="5" required></textarea>
+
+        <button type="submit">Send Message</button>
+        <div id="formMessage"></div>
+      </form>
+    </section>
+  </div>
+  
+  <!-- Footer -->
+  <footer style="background: #2a7ae2; color: rgb(8, 1, 1); padding: 40px 20px; margin-top: 80px; border-radius: 12px 12px 0 0;">
+    <div class="container" style="text-align: center;">
+      <h2 style="font-size: 1.8em; margin-bottom: 10px;">Sitara AI</h2>
+      <p style="font-size: 1em; line-height: 1.6;">
+        Helping you discover the most powerful AI tools in one place — fast, reliable, and up to date.
+      </p>
+      <p style="margin-top: 20px; font-size: 0.9em; color: #000102;">
+        🌐 Created by <strong>Bikramjit</strong> | © 2025 Sitara AI. All rights reserved.
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    const aiCategories = [
+      {
+        name: "AI Chatbots",
+        tools: [
+          { name: "ChatGPT", desc: "AI chatbot by ChatGPT", link: "https://chat.openai.com" },
+          { name: "Claude", desc: "AI chatbot by Claude", link: "https://claude.ai" },
+          { name: "Pi.ai", desc: "Personal AI companion", link: "https://pi.ai" },
+          {name: "DeepSeek", desc: "AI chatbot by DeepSeek", link: "https://www.deepseek.com/" },
+          {name: "Gemini", desc: "AI chatbot by Gemini", link: "https://gemini.google.com/" },
+          {name: "Grok", desc: "AI chatbot by Grok", link: "https://x.ai/" },
+          {name: "Meta AI", desc: "AI chatbot by Meta AI", link: "https://www.meta.ai/" },
+          {name: "MS Copilot", desc: "AI chatbot by MS Copilot", link: "https://copilot.microsoft.com/" },
+          {name: "Perplexity", desc: "AI chatbot by Perplexity", link: "https://www.perplexity.ai" }
+        ]
+      },
+      {
+        name: "AI Image Generators",
+        tools: [
+          { name: "Midjourney", desc: "AI art generator", link: "https://midjourney.com" },
+          { name: "DALL·E", desc: "Text to image by OpenAI", link: "https://openai.com/dall-e" },
+          { name: "Leonardo AI", desc: "Creative image AI", link: "https://leonardo.ai" },
+          { name: "Adobe Firefly", desc: "AI image generator by Adobe Firefly", link: "https://firefly.adobe.com/" },
+          { name: "FLUX.1", desc: "AI image generator by FLUX.1", link: "https://flux1.ai/" },
+      { name: "Ideogram", desc: "AI image generator by Ideogram", link: "https://ideogram.ai/" },
+      { name: "Recraft", desc: "AI image generator by Recraft", link: "https://recraft.ai/" },
+      { name: "Stable Diffusion", desc: "AI image generator by Stable Diffusion", link: "https://stablediffusionweb.com/" }
+        ]
+      },
+      {
+        name: "AI Video Generators",
+        tools: [
+          { name: "Sora", desc: "Text to video by OpenAI", link: "https://openai.com/sora" },
+          { name: "Runway ML", desc: "Video editing with AI", link: "https://runwayml.com" },
+          { name: "Pika Ai", desc: "AI animation creator", link: "https://pika.art" },
+          { name: "Descript", desc: "AI video generator by Descript", link: "https://www.descript.com/" },
+          { name: "Haiper Ai", desc: "AI video generator by Haiper Ai", link: "https://haiper.ai/" },
+          { name: "Invideo Ai", desc: "AI video generator by Invideo Ai", link: "https://invideo.io/" },
+          { name: "Kling", desc: "AI video generator by Kling", link: "https://kling.ai/" },
+          { name: "Krea Ai", desc: "AI video generator by Krea Ai", link: "https://www.krea.ai/" },
+          { name: "LTX Studio", desc: "AI video generator by LTX Studio", link: "https://www.ltxstudio.com/" },
+          { name: "Luma Ai", desc: "AI video generator by Luma Ai", link: "https://lumalabs.ai/" } 
+        ]
+      },
+      {
+        name: "AI Writing Generators",
+        tools: [
+          { name: "Copy.ai", desc: "Marketing & content writing", link: "https://copy.ai" },
+          { name: "Jasper", desc: "AI content assistant", link: "https://jasper.ai" },
+          { name: "Quillbot", desc: "Paraphrasing tool", link: "https://quillbot.com" },
+          { name: "Grammarly", desc: "AI writing tools by Grammarly", link: "https://www.grammarly.com/" },
+          { name: "JotBot", desc: "AI writing tools by JotBot", link: "https://jotbot.com/" },
+          { name: "Quarkle", desc: "AI writing tools by Quarkle", link: "https://quarkle.ai/" },
+          { name: "Rytr", desc: "AI writing tools by Rytr", link: "https://rytr.me/" },
+          { name: "Sudowrite", desc: "AI writing tools by Sudowrite", link: "https://www.sudowrite.com/" },
+          { name: "Writesonic", desc: "AI writing tools by Writesonic", link: "https://writesonic.com/" }
+        ]
+      },
+      {
+        name: "AI Coding Tools",
+        tools: [
+          { name: "Replit Ghostwriter", desc: "AI coding partner", link: "https://replit.com" },
+          { name: "GitHub Copilot", desc: "Code completion AI", link: "https://github.com/features/copilot" },
+          { name: "Codeium", desc: "Free AI pair programmer", link: "https://codeium.com" },
+          { name: "Askcodi", desc: "AI coding tools by Askcodi", link: "https://www.askcodi.com/" },
+          { name: "Codiga", desc: "AI coding tools by Codiga", link: "https://www.codiga.io/" },
+          { name: "Cursor", desc: "AI coding tools by Cursor", link: "https://www.cursor.so/" },
+          { name: "Qodo", desc: "AI coding tools by Qodo", link: "https://qodo.dev/" },
+          { name: "Tabnine", desc: "AI coding tools by Tabnine", link: "https://www.tabnine.com/" }
+        ]
+      },
+      {
+        name: "AI Presentation",
+        tools: [
+          { name: "Beautiful.Ai", desc: "AI ppt generation by Beautiful.Ai", link: "https://www.beautiful.ai/" },
+          { name: "Gamma", desc: "AI ppt generation by Gamma", link: "https://gamma.app/" },
+          { name: "Pitch", desc: "AI ppt generation by Pitch", link: "https://pitch.com/" },
+          { name: "Plus", desc: "AI ppt generation by Plus", link: "https://www.plusdocs.com/" },
+          { name: "PopAi", desc: "AI ppt generation by PopAi", link: "https://popai.pro/" },
+          { name: "Presentation.Ai", desc: "AI ppt generation by Presentation.Ai", link: "https://www.presentations.ai/" },
+          { name: "Slidesgo", desc: "AI ppt generation by Slidesgo", link: "https://slidesgo.com/" },
+          { name: "Tome", desc: "AI ppt generation by Tome", link: "https://tome.app/" }
+        ]
+        
+      },
+      {
+        name: "AI Spreadsheet",
+        tools: [
+          { name: "Bricks AI", desc: "AI spreadsheet by Bricks AI", link: "https://usebricks.ai/" },
+          { name: "Formula Bot", desc: "AI spreadsheet by Formula Bot", link: "https://formulabot.com/" },
+          { name: "Gigasheet", desc: "AI spreadsheet by Gigasheet", link: "https://gigasheet.com/" },
+          { name: "Rows Ai", desc: "AI spreadsheet by Rows Ai", link: "https://rows.com/" },
+          { name: "Sheet Ai", desc: "AI spreadsheet by Sheet Ai", link: "https://www.sheetai.app/" }
+        ]
+      },
+      {
+        name: "AI Scheduling",
+        tools: [
+          { name: "Calendly", desc: "Smart AI scheduling by Calendly", link: "https://calendly.com/" },
+          { name: "Clockwise", desc: "Smart AI scheduling by Clockwise", link: "https://www.getclockwise.com/" },
+          { name: "Motion", desc: "Smart AI scheduling by Motion", link: "https://usemotion.com/" },
+          { name: "Reclaim Ai", desc: "Smart AI scheduling by Reclaim Ai", link: "https://reclaim.ai/" },
+          { name: "Taskade", desc: "Smart AI scheduling by Taskade", link: "https://www.taskade.com/" },
+          { name: "Trevor Ai", desc: "Smart AI scheduling by Trevor Ai", link: "https://www.trevorai.com/" }
+        ]
+      },
+      {
+        name: "AI Knowledge Management",
+        tools: [
+          { name: "Mem", desc: "AI knowledge management by Mem AI", link: "https://mem.ai/" },
+          { name: "Notion", desc: "AI knowledge management by Notion", link: "https://www.notion.so/" },
+          { name: "Tettra", desc: "AI knowledge management by Tettra", link: "https://tettra.com/" }
+        ]
+      },
+      {
+        name: "AI Meeting Notes",
+        tools: [
+          { name: "Avoma", desc: "Smart meeting AI notes by Avoma", link: "https://www.avoma.com/" },
+          { name: "Equal Time", desc: "Smart meeting AI notes by Equal Time", link: "https://equaltime.io/" },
+          { name: "Fathom", desc: "Smart meeting AI notes by Fathom", link: "https://fathom.video/" },
+          { name: "Fellow.App", desc: "Smart meeting AI notes by Fellow.App", link: "https://fellow.app/" },
+          { name: "Fireflies", desc: "Smart meeting AI notes by Fireflies", link: "https://fireflies.ai/" },
+          { name: "Krisp", desc: "Smart meeting AI notes by Krisp", link: "https://krisp.ai/" },
+          { name: "Otter", desc: "Smart meeting AI notes by Otter", link: "https://otter.ai/" }
+        ]
+      },
+      {
+        name: "AI Email Assistant",
+        tools: [
+          { name: "Clippit.Ai", desc: "Smart notes & docs", link: "https://clippit.ai/" },
+          { name: "Friday", desc: "Writing assistant & grammar", link: "https://friday.app/" },
+          { name: "Mailmaestro", desc: "Task management with AI", link: "https://mailmaestro.ai/" },
+          { name: "Shortwave", desc: "Task management with AI", link: "https://www.shortwave.com/" },
+          { name: "Superhuman", desc: "Task management with AI", link: "https://superhuman.com/" }
+        ]
+      },
+      {
+        name: "AI Workflow Automation",
+        tools: [
+          { name: "Integrately", desc: "Smart notes & docs", link: "https://integrately.com/" },
+          { name: "Make", desc: "Writing assistant & grammar", link: "https://www.make.com/" },
+          { name: "Monday.Com", desc: "Task management with AI", link: "https://monday.com/" },
+          { name: "N8n", desc: "Task management with AI", link: "https://n8n.io/" },
+          { name: "Wrike", desc: "Task management with AI", link: "https://www.wrike.com/" },
+          { name: "Zapier", desc: "Task management with AI", link: "https://zapier.com/" }
+        ]
+      },
+      {
+        name: "AI Graphic Design",
+        tools: [
+          { name: "AutoDraw", desc: "Smart notes & docs", link: "https://www.autodraw.com/" },
+          { name: "Canva", desc: "Writing assistant & grammar", link: "https://www.canva.com/" },
+          { name: "Design.Com", desc: "Task management with AI", link: "https://www.design.com/" },
+          { name: "Framer", desc: "Task management with AI", link: "https://www.framer.com/" },
+          { name: "Microsoft Designer", desc: "Task management with AI", link: "https://designer.microsoft.com/" },
+          { name: "Ulizard", desc: "Task management with AI", link: "https://uizard.io/" }
+        ]
+      },
+      {
+        name: "AI Data Visualization",
+        tools: [
+          { name: "Deckpilot", desc: "Smart notes & docs", link: "https://www.deckpilot.com/" },
+          { name: "Flourish", desc: "Writing assistant & grammar", link: "https://flourish.studio/" },
+          { name: "Julius", desc: "Task management with AI", link: "https://julius.ai/" },
+          { name: "Visme", desc: "Task management with AI", link: "https://www.visme.co/" },
+          { name: "Zing Data", desc: "Task management with AI", link: "https://www.zingdata.com/" }
+        ]
+      },
+    ];
+
+    const container = document.getElementById('ai-sections');
+
+    aiCategories.forEach(category => {
+      const section = document.createElement('div');
+      section.className = 'category';
+
+      const title = document.createElement('h2');
+      title.textContent = category.name;
+      section.appendChild(title);
+
+      const grid = document.createElement('div');
+      grid.className = 'tools';
+
+      category.tools.forEach(tool => {
+        const card = document.createElement('div');
+        card.className = 'tool-card';
+        card.innerHTML = `
+          <h3>${tool.name}</h3>
+          <p>${tool.desc}</p>
+          <a href="${tool.link}" target="_blank">Visit Tool →</a>
+        `;
+        grid.appendChild(card);
+      });
+
+      section.appendChild(grid);
+      container.appendChild(section);
+    });
+
+    // Contact Form Handling
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const message = document.getElementById('message').value.trim();
+      const formMessage = document.getElementById('formMessage');
+
+      if(name && email && message) {
+        formMessage.innerHTML = '<p class="success">Thank you for contacting us! We will get back to you soon.</p>';
+        this.reset();
+      } else {
+        formMessage.innerHTML = '<p class="error">Please fill in all fields.</p>';
+      }
+    });
+
+    // Login Modal Handling
+    const modal = document.getElementById("loginModal");
+    const btn = document.getElementById("openLogin");
+    const span = document.getElementsByClassName("close")[0];
+
+    btn.onclick = function() {
+      modal.style.display = "block";
+    }
+
+    span.onclick = function() {
+      modal.style.display = "none";
+    }
+
+    window.onclick = function(event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    }
+
+    // Login Form Handling
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const email = document.getElementById('loginEmail').value.trim();
+      const password = document.getElementById('loginPassword').value.trim();
+      
+      // Here you would typically validate and send to server
+      // For demo purposes, we'll just show a success message
+      alert('Login successful! (This is a demo)');
+      modal.style.display = "none";
+    });
+
+    // Smooth scrolling for navigation links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth'
+        });
+      });
+    });
+  </script>
+</body>
+</html>
