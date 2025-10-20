@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Terms & Conditions - Sitara AI</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #0a0a0a 0%, #1a0a2e 50%, #0a0a0a 100%);
+      color: #fff;
+      overflow-x: hidden;
+    }
+
+    .stars {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .star {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      background: #fff;
+      border-radius: 50%;
+      animation: twinkle 3s infinite;
+    }
+
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.3; }
+      50% { opacity: 1; }
+    }
+
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: rgba(10, 10, 10, 0.95);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      z-index: 1000;
+      padding: 15px 0;
+    }
+
+    .nav-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 28px;
+      font-weight: bold;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 30px;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: #b8b8d1;
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.3s;
+    }
+
+    .nav-links a:hover {
+      color: #667eea;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 120px auto 80px;
+      padding: 0 30px;
+      position: relative;
+      z-index: 10;
+    }
+
+    .policy-header {
+      text-align: center;
+      margin-bottom: 60px;
+      animation: fadeInUp 0.8s ease-out;
+    }
+
+    .policy-header h1 {
+      font-size: 56px;
+      margin-bottom: 15px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .policy-header .update-date {
+      color: #b8b8d1;
+      font-size: 16px;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .policy-content {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 25px;
+      padding: 60px;
+      animation: fadeIn 0.6s ease-out 0.2s backwards;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .policy-content h2 {
+      font-size: 32px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-top: 40px;
+      margin-bottom: 20px;
+    }
+
+    .policy-content h2:first-child {
+      margin-top: 0;
+    }
+
+    .policy-content h3 {
+      font-size: 24px;
+      color: #fff;
+      margin-top: 30px;
+      margin-bottom: 15px;
+    }
+
+    .policy-content p {
+      color: #b8b8d1;
+      font-size: 17px;
+      line-height: 1.8;
+      margin-bottom: 20px;
+    }
+
+    .policy-content ul, .policy-content ol {
+      color: #b8b8d1;
+      font-size: 17px;
+      line-height: 1.8;
+      margin-bottom: 20px;
+      padding-left: 30px;
+    }
+
+    .policy-content li {
+      margin-bottom: 12px;
+    }
+
+    .policy-content strong {
+      color: #fff;
+      font-weight: 600;
+    }
+
+    .policy-content a {
+      color: #667eea;
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.3s;
+    }
+
+    .policy-content a:hover {
+      color: #764ba2;
+      text-decoration: underline;
+    }
+
+    .highlight-box {
+      background: rgba(102, 126, 234, 0.1);
+      border-left: 4px solid #667eea;
+      padding: 20px 25px;
+      margin: 30px 0;
+      border-radius: 10px;
+    }
+
+    .warning-box {
+      background: rgba(255, 152, 0, 0.1);
+      border-left: 4px solid #ff9800;
+      padding: 20px 25px;
+      margin: 30px 0;
+      border-radius: 10px;
+    }
+
+    footer {
+      background: rgba(10, 10, 10, 0.95);
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 60px 30px 30px;
+      text-align: center;
+    }
+
+    .footer-logo {
+      font-size: 36px;
+      font-weight: bold;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 15px;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      margin-bottom: 30px;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a {
+      color: #b8b8d1;
+      text-decoration: none;
+      font-size: 16px;
+      transition: all 0.3s;
+    }
+
+    .footer-links a:hover {
+      color: #667eea;
+    }
+
+    .footer-bottom {
+      color: #b8b8d1;
+      font-size: 14px;
+      padding-top: 30px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    @media (max-width: 768px) {
+      .policy-header h1 {
+        font-size: 36px;
+      }
+
+      .policy-content {
+        padding: 40px 30px;
+      }
+
+      .policy-content h2 {
+        font-size: 26px;
+      }
+
+      .nav-links {
+        gap: 15px;
+        font-size: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="stars" id="stars"></div>
+
+  <nav>
+    <div class="nav-container">
+      <a href="main.html" class="logo">
+        <span>✨</span>
+        <span>Sitara AI</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index1.html">Home</a></li>
+        <li><a href="cookie-policy.html">Cookies</a></li>
+        <li><a href="privacy-policy.html">Privacy</a></li>
+        <li><a href="index1.html#contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="policy-header">
+      <h1>Terms & Conditions</h1>
+      <p class="update-date">Last Updated: October 19, 2025</p>
+    </div>
+
+    <div class="policy-content">
+      <h2>Agreement to Terms</h2>
+      <p>
+        Welcome to Sitara AI. By accessing or using our website and services, you agree to be bound by these Terms and Conditions ("Terms"). Please read them carefully before using our platform.
+      </p>
+
+      <div class="warning-box">
+        <p>
+          <strong>Important:</strong> If you do not agree with any part of these Terms, you must not use our website or services. Your continued use constitutes acceptance of these Terms.
+        </p>
+      </div>
+
+      <h2>Definitions</h2>
+      <ul>
+        <li><strong>"We," "Us," "Our"</strong> refers to Sitara AI and its operators</li>
+        <li><strong>"You," "Your," "User"</strong> refers to any person accessing or using our services</li>
+        <li><strong>"Services"</strong> refers to our website, platform, and all features provided</li>
+        <li><strong>"Content"</strong> refers to all information, text, graphics, and materials on our platform</li>
+        <li><strong>"Third-Party Tools"</strong> refers to AI tools and services we link to or recommend</li>
+      </ul>
+
+      <h2>Use of Services</h2>
+
+      <h3>Eligibility</h3>
+      <p>
+        To use our services, you must:
+      </p>
+      <ul>
+        <li>Be at least 13 years of age (or the age of majority in your jurisdiction)</li>
+        <li>Have the legal capacity to enter into binding contracts</li>
+        <li>Not be prohibited from using our services under applicable laws</li>
+        <li>Provide accurate and complete registration information</li>
+      </ul>
+
+      <h3>Account Registration</h3>
+      <p>
+        When creating an account, you agree to:
+      </p>
+      <ul>
+        <li>Provide truthful, accurate, and complete information</li>
+        <li>Maintain and update your information as needed</li>
+        <li>Keep your password secure and confidential</li>
+        <li>Notify us immediately of any unauthorized access</li>
+        <li>Accept responsibility for all activities under your account</li>
+      </ul>
+
+      <h3>Acceptable Use</h3>
+      <p>
+        You agree to use our services only for lawful purposes. You must not:
+      </p>
+      <ul>
+        <li>Violate any applicable laws or regulations</li>
+        <li>Infringe upon intellectual property rights</li>
+        <li>Transmit harmful, offensive, or inappropriate content</li>
+        <li>Attempt to gain unauthorized access to our systems</li>
+        <li>Interfere with or disrupt our services</li>
+        <li>Use automated tools to scrape or data mine our platform</li>
+        <li>Impersonate others or misrepresent your affiliation</li>
+        <li>Engage in fraudulent or deceptive practices</li>
+      </ul>
+
+      <h2>Intellectual Property Rights</h2>
+
+      <h3>Our Content</h3>
+      <p>
+        All content on Sitara AI, including but not limited to text, graphics, logos, images, software, and design, is the property of Sitara AI or its licensors and is protected by copyright, trademark, and other intellectual property laws.
+      </p>
+
+      <h3>Limited License</h3>
+      <p>
+        We grant you a limited, non-exclusive, non-transferable license to access and use our services for personal, non-commercial purposes. You may not:
+      </p>
+      <ul>
+        <li>Copy, modify, or create derivative works</li>
+        <li>Distribute, sell, or transfer our content</li>
+        <li>Remove copyright or proprietary notices</li>
+        <li>Use our content for commercial purposes without permission</li>
+      </ul>
+
+      <h3>User-Generated Content</h3>
+      <p>
+        By submitting content to our platform, you grant us a worldwide, non-exclusive, royalty-free license to use, reproduce, modify, and display your content in connection with our services.
+      </p>
+
+      <h2>Third-Party Tools and Links</h2>
+      <p>
+        Our platform provides links to third-party AI tools and services. Please note:
+      </p>
+      <ul>
+        <li>We do not own, control, or endorse these third-party tools</li>
+        <li>We are not responsible for their content, policies, or practices</li>
+        <li>Your use of third-party tools is governed by their own terms and conditions</li>
+        <li>We make no warranties about the accuracy, reliability, or quality of third-party services</li>
+        <li>Any transactions or interactions with third parties are solely between you and them</li>
+      </ul>
+
+      <div class="highlight-box">
+        <p>
+          <strong>Disclaimer:</strong> Sitara AI acts as a directory and information platform. We curate and recommend AI tools but are not liable for the performance, availability, or outcomes of using these tools.
+        </p>
+      </div>
+
+      <h2>Disclaimers and Limitations of Liability</h2>
+
+      <h3>No Warranties</h3>
+      <p>
+        Our services are provided "as is" and "as available" without warranties of any kind, either express or implied, including but not limited to:
+      </p>
+      <ul>
+        <li>Warranties of merchantability or fitness for a particular purpose</li>
+        <li>Warranties of non-infringement</li>
+        <li>Warranties that our services will be uninterrupted, secure, or error-free</li>
+        <li>Warranties regarding the accuracy, reliability, or completeness of content</li>
+      </ul>
+
+      <h3>Limitation of Liability</h3>
+      <p>
+        To the fullest extent permitted by law, Sitara AI and its affiliates, officers, directors, employees, and agents shall not be liable for:
+      </p>
+      <ul>
+        <li>Indirect, incidental, special, consequential, or punitive damages</li>
+        <li>Loss of profits, revenue, data, or business opportunities</li>
+        <li>Damages arising from your use or inability to use our services</li>
+        <li>Damages resulting from third-party tools or content</li>
+        <li>Any damages exceeding the amount you paid us in the past 12 months (if applicable)</li>
+      </ul>
+
+      <h2>Indemnification</h2>
+      <p>
+        You agree to indemnify, defend, and hold harmless Sitara AI and its affiliates from any claims, losses, damages, liabilities, and expenses (including legal fees) arising from:
+      </p>
+      <ul>
+        <li>Your violation of these Terms</li>
+        <li>Your use of our services</li>
+        <li>Your violation of any rights of another party</li>
+        <li>Your content or submissions</li>
+      </ul>
+
+      <h2>Privacy and Data Protection</h2>
+      <p>
+        Your privacy is important to us. Our collection and use of personal information is governed by our <a href="privacy-policy.html">Privacy Policy</a>, which is incorporated into these Terms by reference. By using our services, you consent to our data practices as described in the Privacy Policy.
+      </p>
+
+      <h2>Termination</h2>
+
+      <h3>By You</h3>
+      <p>
+        You may stop using our services and close your account at any time by contacting us or using the account deletion feature.
+      </p>
+
+      <h3>By Us</h3>
+      <p>
+        We reserve the right to suspend or terminate your access to our services at any time, with or without notice, for any reason, including:
+      </p>
+      <ul>
+        <li>Violation of these Terms</li>
+        <li>Fraudulent or illegal activity</li>
+        <li>Abuse of our services</li>
+        <li>Non-payment (if applicable)</li>
+        <li>Extended period of inactivity</li>
+      </ul>
+
+      <h3>Effect of Termination</h3>
+      <p>
+        Upon termination:
+      </p>
+      <ul>
+        <li>Your right to access and use our services will immediately cease</li>
+        <li>We may delete your account and content</li>
+        <li>Provisions that by their nature should survive will remain in effect</li>
+      </ul>
+
+      <h2>Modifications to Services and Terms</h2>
+
+      <h3>Changes to Services</h3>
+      <p>
+        We reserve the right to modify, suspend, or discontinue any part of our services at any time without liability to you.
+      </p>
+
+      <h3>Changes to Terms</h3>
+      <p>
+        We may update these Terms from time to time. We will notify you of material changes by:
+      </p>
+      <ul>
+        <li>Posting the updated Terms on our website</li>
+        <li>Updating the "Last Updated" date</li>
+        <li>Sending email notifications (for significant changes)</li>
+        <li>Displaying a notice on our platform</li>
+      </ul>
+      <p>
+        Your continued use of our services after changes constitutes acceptance of the updated Terms.
+      </p>
+
+      <h2>Dispute Resolution</h2>
+
+      <h3>Governing Law</h3>
+      <p>
+        These Terms shall be governed by and construed in accordance with the laws of India, without regard to its conflict of law provisions.
+      </p>
+
+      <h3>Arbitration</h3>
+      <p>
+        Any disputes arising out of or relating to these Terms or our services shall first be attempted to be resolved through good-faith negotiations. If negotiations fail, disputes shall be resolved through binding arbitration in accordance with applicable arbitration rules.
+      </p>
+
+      <h3>Class Action Waiver</h3>
+      <p>
+        You agree that any dispute resolution proceedings will be conducted only on an individual basis and not in a class, consolidated, or representative action.
+      </p>
+
+      <h2>General Provisions</h2>
+
+      <h3>Entire Agreement</h3>
+      <p>
+        These Terms, together with our Privacy Policy and Cookie Policy, constitute the entire agreement between you and Sitara AI.
+      </p>
+
+      <h3>Severability</h3>
+      <p>
+        If any provision of these Terms is found to be invalid or unenforceable, the remaining provisions shall remain in full force and effect.
+      </p>
+
+      <h3>Waiver</h3>
+      <p>
+        Our failure to enforce any right or provision of these Terms shall not constitute a waiver of such right or provision.
+      </p>
+
+      <h3>Assignment</h3>
+      <p>
+        You may not assign or transfer your rights or obligations under these Terms without our prior written consent. We may assign our rights and obligations without restriction.
+      </p>
+
+      <h3>Force Majeure</h3>
+      <p>
+        We shall not be liable for any failure or delay in performance due to circumstances beyond our reasonable control, including acts of God, war, terrorism, riots, natural disasters, or technical failures.
+      </p>
+
+      <h2>Contact Information</h2>
+      <p>
+        If you have any questions about these Terms, please contact us:
+      </p>
+      <ul>
+        <li><strong>Email:</strong> <a href="mailto:support@sitaraai.com">support@sitaraai.com</a></li>
+        <li><strong>Phone:</strong> <a href="tel:+918348458035">+91 8348458035</a></li>
+        <li><strong>Website:</strong> <a href="index.html">www.sitaraai.com</a></li>
+        <li><strong>Address:</strong> Bankra, West Bengal, India</li>
+      </ul>
+
+      <h2>Acknowledgment</h2>
+      <p>
+        By using Sitara AI, you acknowledge that you have read, understood, and agree to be bound by these Terms and Conditions. Thank you for choosing Sitara AI as your trusted AI tools directory.
+      </p>
+
+      <div class="highlight-box">
+        <p>
+          <strong>Questions?</strong> We're here to help! If you need clarification on any part of these Terms, please don't hesitate to reach out to our support team.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-logo">Sitara AI</div>
+    <div class="footer-links">
+      <a href="index1.html">Home</a>
+      <a href="cookie-policy.html">Cookie Policy</a>
+      <a href="privacy-policy.html">Privacy Policy</a>
+      <a href="terms.html">Terms & Conditions</a>
+      <a href="index1.html#contact">Contact</a>
+    </div>
+    <div class="footer-bottom">
+      🌐 Created by <strong>Bikramjit</strong> | © 2025 Sitara AI. All rights reserved.
+    </div>
+  </footer>
+
+  <script>
+    // Generate stars
+    const starsContainer = document.getElementById('stars');
+    for (let i = 0; i < 150; i++) {
+      const star = document.createElement('div');
+      star.className = 'star';
+      star.style.left = Math.random() * 100 + '%';
+      star.style.top = Math.random() * 100 + '%';
+      star.style.animationDelay = Math.random() * 3 + 's';
+      starsContainer.appendChild(star);
+    }
+
+    // Smooth scrolling
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    });
+  </script>
+</body>
+</html>
