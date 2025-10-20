@@ -42,6 +42,7 @@ Sitara AI is a comprehensive directory platform that curates and showcases the b
 
 ## 🚀 Live Demo
 VS Code live website: (http://127.0.0.1:5501/index.html)
+
 🌟 Visit the live website: **[https://sitara-ai-rh58.vercel.app/](https://sitara-ai-rh58.vercel.app/)**
 
 ## 🛠️ Built With
