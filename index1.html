@@ -71,6 +71,7 @@
       display: flex;
       align-items: center;
       gap: 10px;
+      z-index: 1001;
     }
 
     .nav-links {
@@ -182,7 +183,7 @@
         font-size: 16px;
       }
     }
-    
+
     /* Cookie Settings Modal */
     .cookie-modal {
       position: fixed;
@@ -558,7 +559,7 @@
     .footer-links a:hover {
       color: #667eea;
     }
-    
+
     .footer-bottom {
       color: #b8b8d1;
       font-size: 14px;
@@ -578,6 +579,14 @@
       .about-section,
       .contact-section {
         padding: 40px 30px;
+      }
+
+      .cookie-buttons {
+        flex-direction: column;
+      }
+
+      .cookie-btn {
+        width: 100%;
       }
     }
   </style>
@@ -608,11 +617,20 @@
         <span>✨</span>
         <span>Sitara AI</span>
       </div>
-      <ul class="nav-links">
-        <li><a href="#home">Home</a></li>
-        <li><a href="#categories">Categories</a></li>
-        <li><a href="#about">About</a></li>
-        <li><a href="#contact">Contact</a></li>
+      
+      <!-- Hamburger Menu -->
+      <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+
+      <!-- Navigation Links -->
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#home" onclick="closeMenu()">Home</a></li>
+        <li><a href="#categories" onclick="closeMenu()">Categories</a></li>
+        <li><a href="#about" onclick="closeMenu()">About</a></li>
+        <li><a href="#contact" onclick="closeMenu()">Contact</a></li>
         <li><button class="logout-btn" onclick="handleLogout()">Logout</button></li>
       </ul>
     </div>
@@ -668,12 +686,13 @@
     <div class="footer-bottom">
       🌐 Created by <strong>Bikramjit</strong> | © 2025 Sitara AI. All rights reserved.
     </div>
-    <br>
+<br>
     <div class="footer-links">
       <a href="cookie-policy.html">Cookie Policy</a>
       <a href="privacy-policy.html">Privacy Policy</a>
       <a href="terms.html">Terms & Conditions</a>
     </div>
+
   </footer>
 
   <script>
@@ -686,6 +705,21 @@
       star.style.top = Math.random() * 100 + '%';
       star.style.animationDelay = Math.random() * 3 + 's';
       starsContainer.appendChild(star);
+    }
+
+    // Mobile Menu Toggle
+    function toggleMenu() {
+      const navLinks = document.getElementById('navLinks');
+      const hamburger = document.getElementById('hamburger');
+      navLinks.classList.toggle('active');
+      hamburger.classList.toggle('active');
+    }
+
+    function closeMenu() {
+      const navLinks = document.getElementById('navLinks');
+      const hamburger = document.getElementById('hamburger');
+      navLinks.classList.remove('active');
+      hamburger.classList.remove('active');
     }
 
     const aiCategories = [
@@ -912,10 +946,8 @@
 
     // Cookie Modal Management
     window.addEventListener('load', function() {
-      // Check if user has already accepted/rejected cookies
       const cookieConsent = localStorage.getItem('cookieConsent');
       if (!cookieConsent) {
-        // Show cookie modal after 2 seconds
         setTimeout(() => {
           document.getElementById('cookieModal').classList.add('show');
         }, 2000);
@@ -944,14 +976,12 @@
     // Logout Function
     function handleLogout() {
       if (confirm('Are you sure you want to logout?')) {
-        // Clear user session
         sessionStorage.clear();
         localStorage.removeItem('userLoggedIn');
         showNotification('✓ Logged out successfully', 'success');
         
-        // Redirect to login page after 1.5 seconds
         setTimeout(() => {
-          window.location.href = 'index.html'; // Change to your login page URL
+          window.location.href = 'index.html';
         }, 1500);
       }
     }
@@ -975,7 +1005,6 @@
       notification.textContent = message;
       document.body.appendChild(notification);
 
-      // Remove notification after 3 seconds
       setTimeout(() => {
         notification.style.animation = 'slideOutRight 0.5s ease-out';
         setTimeout(() => notification.remove(), 500);
@@ -1009,7 +1038,4 @@
     document.head.appendChild(style);
   </script>
 </body>
-
 </html>
-
-
