@@ -11,16 +11,6 @@
 
 Sitara AI is a comprehensive directory platform that curates and showcases the best AI tools available across multiple categories. Whether you're looking for chatbots, image generators, video creation tools, or writing assistants, Sitara AI helps you discover the perfect tool for your needs.
 
-## 📸 Screenshots
-
-### Desktop View
-![Desktop Screenshot]((https://github.com/CodewithBikram2025/sitara.ai/blob/main/Screenshot%202025-10-19%20043725.png))
-*Full-featured desktop interface with easy navigation*
-
-### Mobile View
-![Mobile Screenshot](path/to/mobile-screenshot.png)
-*Responsive mobile design for on-the-go access*
-
 ## ✨ Features
 
 - 🤖 **AI Chatbots Directory** - Discover leading conversational AI tools
