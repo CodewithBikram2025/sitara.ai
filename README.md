@@ -14,7 +14,7 @@ Sitara AI is a comprehensive directory platform that curates and showcases the b
 ## 📸 Screenshots
 
 ### Desktop View
-![Desktop Screenshot](path/to/desktop-screenshot.png)
+![Desktop Screenshot]((https://github.com/CodewithBikram2025/sitara.ai/blob/main/Screenshot%202025-10-19%20043725.png))
 *Full-featured desktop interface with easy navigation*
 
 ### Mobile View
